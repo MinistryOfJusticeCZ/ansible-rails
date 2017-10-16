@@ -1,0 +1,21 @@
+---
+
+- name: Make sure required packages are in place
+  package:
+    name: '{{ item }}'
+    state: 'present'
+  with_flattened:
+    - '{{ apt_packages }}'
+
+- name: Install pip package
+  pip:
+    name: psycopg2
+    state: 'present'
+
+- name: Make sure required users for postgres db are in place
+  postgresql_user:
+    name: '{{ item.name }}'
+    password: '{{ item.password }}'
+    role_attr_flags: CREATEDB,NOSUPERUSER
+  with_flattened:
+    - '{{ postgres_users }}'
