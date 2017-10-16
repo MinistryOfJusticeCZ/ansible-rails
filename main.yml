@@ -3,3 +3,4 @@
   roles:
     - debops.ruby
     - rails_app_psql
+  environment: "{{proxy_env}}"
