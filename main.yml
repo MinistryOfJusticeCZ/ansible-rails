@@ -1,0 +1,4 @@
+- name: Setup rails app
+  hosts: all
+  roles:
+    - debops.ruby
