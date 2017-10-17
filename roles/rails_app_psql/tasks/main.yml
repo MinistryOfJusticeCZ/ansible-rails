@@ -62,10 +62,10 @@
     owner: gitlab_deploy
     group: gitlab_deploy
   template:
-    src: template/unicorn.rb.j2
+    src: templates/unicorn.rb.j2
     dest: /srv/{{rails_app_name}}/shared/config/unicorn.rb
     owner: gitlab_deploy
     group: gitlab_deploy
   template:
-    src: template/secrets.yml.j2
+    src: templates/secrets.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/secrets.yml
