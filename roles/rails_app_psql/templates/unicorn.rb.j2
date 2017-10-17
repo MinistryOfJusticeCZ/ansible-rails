@@ -1,6 +1,6 @@
 worker_processes 5
 
-working_directory "/srv/love-azahara/current" # available in 0.94.0+
+working_directory "/srv/{{rails_app_name}}/current" # available in 0.94.0+
 
 listen File.expand_path("tmp/sockets/unicorn.sock", ENV['RAILS_ROOT']), :backlog => 64
 # listen 8080, :tcp_nopush => true
