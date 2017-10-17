@@ -87,13 +87,14 @@
 
 - name: Disable default nginx site
   file:
-    src: /etc/nginx/sites-enabled/default
+    path: /etc/nginx/sites-enabled/default
     state: absent
 
 - name: Enable nginx site
   file:
     dest: /etc/nginx/sites-available/{{rails_app_name}}
     src: /etc/nginx/sites-enabled/{{rails_app_name}}
+    state: link
 
 - name: Restart nginx
   service: name=nginx state=restarted
