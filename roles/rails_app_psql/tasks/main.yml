@@ -58,6 +58,14 @@
 - name: Create default files for rails app
   template:
     src: templates/pg_database.yml.j2
-    dest: /srv/{{rails_app_name}}/shared/database.yml
+    dest: /srv/{{rails_app_name}}/shared/config/database.yml
     owner: gitlab_deploy
     group: gitlab_deploy
+  template:
+    src: template/unicorn.rb.j2
+    dest: /srv/{{rails_app_name}}/shared/config/unicorn.rb
+    owner: gitlab_deploy
+    group: gitlab_deploy
+  template:
+    src: template/secrets.yml.j2
+    dest: /srv/{{rails_app_name}}/shared/config/secrets.yml

@@ -1,0 +1,19 @@
+---
+ldap:
+  main:
+    label: 'Lab'
+    host: {{ldap.host}}
+    port: {{ldap.port}}
+    uid: 'userPrincipalName'
+    method: '{{ldap.method}}'
+    bind_dn: '{{ldap.bind_dn}}'
+    password: '{{ldap.bind_password}}'
+    active_directory: true
+    base: '{{ldap.base}}'
+    onthefly_register: members
+    attributes:
+      username: ['userPrincipalName']
+      email: ['mail', 'email']
+      name: 'cn'
+      first_name: 'givenName'
+      last_name: 'sn'
