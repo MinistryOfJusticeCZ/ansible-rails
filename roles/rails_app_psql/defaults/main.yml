@@ -1,4 +1,4 @@
-apt_packages: ['python-pip', 'python-dev', 'postgresql']
+apt_packages: ['python-pip', 'python-dev', 'postgresql', 'nginx']
 
 rails_app_name: '{{ ansible_hostname }}'
 postgres_db_name: '{{ rails_app_name }}'

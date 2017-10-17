@@ -79,3 +79,21 @@
     dest: /srv/{{rails_app_name}}/shared/config/config.yml
     owner: gitlab_deploy
     group: gitlab_deploy
+
+- name: Create nginx config file
+  template:
+    src: templates/nginx_site.j2
+    dest: /etc/nginx/sites-available/{{rails_app_name}}
+
+- name: Disable default nginx site
+  file:
+    src: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Enable nginx site
+  file:
+    dest: /etc/nginx/sites-available/{{rails_app_name}}
+    src: /etc/nginx/sites-enabled/{{rails_app_name}}
+
+- name: Restart nginx
+  service: name=nginx state=restarted
