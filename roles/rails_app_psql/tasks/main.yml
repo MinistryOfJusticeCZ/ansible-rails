@@ -78,4 +78,4 @@
     src: templates/config.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/config.yml
     owner: gitlab_deploy
-    owner: gitlab_deploy
+    group: gitlab_deploy
