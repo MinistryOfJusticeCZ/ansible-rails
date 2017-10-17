@@ -20,10 +20,12 @@
   with_flattened:
     - '{{ postgres_users }}'
 
-- name: Create deploy user
+- name: Create deployers group
   group:
     name: deployers
     state: present
+
+- name: Make sure there is a gitlab_deploy user
   user:
     name: gitlab_deploy
     comment: "Gitlab deploy user"
