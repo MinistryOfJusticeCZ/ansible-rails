@@ -47,7 +47,7 @@
 
 - name: Ensure rails application folder
   file:
-    path: /srv/{{rails_app_name}}/shared
+    path: /srv/{{rails_app_name}}/shared/config
     state: directory
     owner: gitlab_deploy
     group: gitlab_deploy
