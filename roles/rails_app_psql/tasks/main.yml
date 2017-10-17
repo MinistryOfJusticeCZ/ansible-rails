@@ -19,3 +19,41 @@
     role_attr_flags: CREATEDB,NOSUPERUSER
   with_flattened:
     - '{{ postgres_users }}'
+
+- name: Create deploy user
+  group:
+    name: deployers
+    state: present
+  user:
+    name: gitlab_deploy
+    comment: "Gitlab deploy user"
+    groups: sudo,deployers
+    shell: /bin/bash
+    state: present
+  copy:
+    content: '{{gitlab_pub_key}}'
+    dest: ~gitlab_deploy/.ssh/authorized_keys
+
+- name: Create directory for rails application
+  file:
+    path: /srv
+    state: directory
+    owner: root
+    group: root
+  file:
+    path: /srv/{{rails_app_name}}
+    state: directory
+    owner: gitlab_deploy
+    group: gitlab_deploy
+  file:
+    path: /srv/{{rails_app_name}}/shared
+    state: directory
+    owner: gitlab_deploy
+    group: gitlab_deploy
+
+- name: Create default files for rails app
+  template:
+    src: templates/pg_database.yml.j2
+    dest: /srv/{{rails_app_name}}/shared/database.yml
+    owner: gitlab_deploy
+    group: gitlab_deploy

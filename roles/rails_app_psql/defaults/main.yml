@@ -1,8 +1,10 @@
 apt_packages: ['python-pip', 'python-dev', 'postgresql']
 
 rails_app_name: '{{ ansible_hostname }}'
+postgres_db_name: '{{ rails_app_name }}'
+postgres_db_user: '{{ rails_app_name }}'
 postgres_db_password: '{{ rails_app_name }}'
 
 
 postgres_users:
-  - { name: '{{ rails_app_name }}', password: '{{ postgres_db_password }}' }
+  - { name: '{{ postgres_db_user }}', password: '{{ postgres_db_password }}' }
