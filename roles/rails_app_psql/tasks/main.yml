@@ -70,3 +70,12 @@
   template:
     src: templates/secrets.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/secrets.yml
+    owner: gitlab_deploy
+    group: gitlab_deploy
+
+- name: Create egov_utils config file
+  template:
+    src: templates/config.yml.j2
+    dest: /srv/{{rails_app_name}}/shared/config/config.yml
+    owner: gitlab_deploy
+    owner: gitlab_deploy
