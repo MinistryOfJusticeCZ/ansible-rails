@@ -92,8 +92,8 @@
 
 - name: Enable nginx site
   file:
-    dest: /etc/nginx/sites-available/{{rails_app_name}}
-    src: /etc/nginx/sites-enabled/{{rails_app_name}}
+    path: /etc/nginx/sites-enabled/{{rails_app_name}}
+    src: /etc/nginx/sites-available/{{rails_app_name}}
     state: link
 
 - name: Restart nginx
