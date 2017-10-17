@@ -30,6 +30,8 @@
     groups: sudo,deployers
     shell: /bin/bash
     state: present
+
+- name: Copy public key for deploy user
   copy:
     content: '{{gitlab_pub_key}}'
     dest: ~gitlab_deploy/.ssh/authorized_keys
