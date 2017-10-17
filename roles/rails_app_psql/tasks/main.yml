@@ -38,34 +38,35 @@
     content: '{{gitlab_pub_key}}'
     dest: ~gitlab_deploy/.ssh/authorized_keys
 
-- name: Create directory for rails application
+- name: Ensure rails applications main folder
   file:
     path: /srv
     state: directory
     owner: root
     group: root
-  file:
-    path: /srv/{{rails_app_name}}
-    state: directory
-    owner: gitlab_deploy
-    group: gitlab_deploy
+
+- name: Ensure rails application folder
   file:
     path: /srv/{{rails_app_name}}/shared
     state: directory
     owner: gitlab_deploy
     group: gitlab_deploy
 
-- name: Create default files for rails app
+- name: Create default database config for rails app
   template:
     src: templates/pg_database.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/database.yml
     owner: gitlab_deploy
     group: gitlab_deploy
+
+- name: Create default unicorn config
   template:
     src: templates/unicorn.rb.j2
     dest: /srv/{{rails_app_name}}/shared/config/unicorn.rb
     owner: gitlab_deploy
     group: gitlab_deploy
+
+- name: Create secrets file
   template:
     src: templates/secrets.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/secrets.yml
