@@ -2,7 +2,8 @@
 ldap:
   main:
     label: 'Lab'
-    host: {{ldap.host}}
+    domain: {{ldap.domain}}
+    resolve_host: true
     port: {{ldap.port}}
     uid: 'userPrincipalName'
     method: '{{ldap.method}}'
