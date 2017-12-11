@@ -130,12 +130,10 @@
     path: /etc/nginx/sites-enabled/{{rails_app_name}}
     src: /etc/nginx/sites-available/{{rails_app_name}}
     state: link
-
-- name: Restart nginx
-  service: name=nginx state=restarted
+  notify: restart nginx
 
 - name: Set proxy in .gemrc
-  file:
+  template:
     src: templates/gemrc.j2
     dest: ~gitlab_deploy/.gemrc
     owner: gitlab_deploy
