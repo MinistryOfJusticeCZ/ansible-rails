@@ -10,5 +10,9 @@ rails_app_secret: "{{ rails_app_name|password_hash('sha512') }}"
 postgres_users:
   - { name: '{{ postgres_db_user }}', password: '{{ postgres_db_password }}' }
 
+# http_proxy: http://proxy.example.cz:3232/
+
+
 ldap:
-  domain: '{{ domain }}'
+  enabled: false
+  # domain: '{{ domain }}'
