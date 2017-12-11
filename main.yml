@@ -1,5 +1,5 @@
 - name: Setup rails app
-  hosts: RailsApps
+  hosts: all
   roles:
     - debops.ruby
     - rails_app_psql
