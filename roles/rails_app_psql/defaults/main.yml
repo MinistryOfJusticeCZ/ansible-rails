@@ -9,3 +9,6 @@ rails_app_secret: "{{ rails_app_name|password_hash('sha512') }}"
 
 postgres_users:
   - { name: '{{ postgres_db_user }}', password: '{{ postgres_db_password }}' }
+
+ldap:
+  domain: {{ domain }}

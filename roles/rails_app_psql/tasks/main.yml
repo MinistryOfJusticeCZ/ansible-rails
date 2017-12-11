@@ -55,12 +55,15 @@
     state: directory
     owner: gitlab_deploy
     group: gitlab_deploy
-    mode: 700
+    mode: 0700
 
 - name: Copy public key for deploy user
   copy:
     content: '{{gitlab_pub_key}}'
     dest: ~gitlab_deploy/.ssh/authorized_keys
+    owner: gitlab_deploy
+    group: gitlab_deploy
+    mode: 0644
 
 - name: Copy public key for deploy user
   copy:
@@ -68,7 +71,7 @@
     dest: ~gitlab_deploy/.ssh/id_rsa
     owner: gitlab_deploy
     group: gitlab_deploy
-    mode: 600
+    mode: 0600
 
 - name: Ensure rails applications main folder
   file:
