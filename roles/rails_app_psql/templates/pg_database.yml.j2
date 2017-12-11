@@ -7,10 +7,10 @@ default: &default
 
 production:
   <<: *default
-  database: {{postgres_db_name}}_production
+  database: {{postgres_db_name}}
   password: {{postgres_db_password}}
 
 staging:
   <<: *default
-  database: {{postgres_db_name}}_staging
+  database: {{postgres_db_name}}
   password: {{postgres_db_password}}

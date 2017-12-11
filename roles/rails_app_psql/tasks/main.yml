@@ -20,6 +20,13 @@
   with_flattened:
     - '{{ postgres_users }}'
 
+- name: Create database for appliaction
+  postgresql_db:
+    name: '{{ postgres_db_name }}'
+    encoding: UTF-8
+    owner: '{{ postgres_db_user }}'
+
+
 - name: Create deployers group
   group:
     name: deployers
@@ -37,6 +44,14 @@
   copy:
     content: '{{gitlab_pub_key}}'
     dest: ~gitlab_deploy/.ssh/authorized_keys
+
+- name: Copy public key for deploy user
+  copy:
+    content: '{{gitlab_priv_key}}'
+    dest: ~gitlab_deploy/.ssh/id_rsa
+    owner: gitlab_deploy
+    group: gitlab_deploy
+    mode: 600
 
 - name: Ensure rails applications main folder
   file:
