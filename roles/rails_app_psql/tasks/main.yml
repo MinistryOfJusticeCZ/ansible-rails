@@ -17,7 +17,9 @@
     dest: /etc/postgresql/9.6/main/pg_hba.conf
     regexp: '^local\s+all\s+postgres'
     line: 'local   all             postgres                                trust'
-  notify: restart postgresql
+
+- name: Restart postgresql
+  service: name=postgresql state=restarted
 
 - name: Make sure required users for postgres db are in place
   postgresql_user:
@@ -46,6 +48,14 @@
     groups: sudo,deployers
     shell: /bin/bash
     state: present
+
+- name: Ensure .ssh folder for gitlab_deploy user
+  file:
+    path: '~gitlab_deploy/.ssh'
+    state: directory
+    owner: gitlab_deploy
+    group: gitlab_deploy
+    mode: 700
 
 - name: Copy public key for deploy user
   copy:
