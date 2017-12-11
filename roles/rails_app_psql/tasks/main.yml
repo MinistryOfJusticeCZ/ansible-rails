@@ -12,6 +12,12 @@
     name: psycopg2
     state: 'present'
 
+- name: Set postgres trust for localhost connections
+  lineinfile:
+    regexp: "^local\s+all\s+postgres"
+    line: 'local   all             postgres                                trust'
+  notify: restart postgresql
+
 - name: Make sure required users for postgres db are in place
   postgresql_user:
     name: '{{ item.name }}'
