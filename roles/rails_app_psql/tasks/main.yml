@@ -133,3 +133,10 @@
 
 - name: Restart nginx
   service: name=nginx state=restarted
+
+- name: Set proxy for .gemrc
+  file:
+    path: ~gitlab_deploy/.gemrc
+    src: templates/gemrc.j2
+    owner: gitlab_deploy
+    group: gitlab_deploy
