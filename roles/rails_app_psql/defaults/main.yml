@@ -1,5 +1,5 @@
 rails__apt_packages: ['python-pip', 'python-dev', 'postgresql', 'nginx']
-rails__dev_packages: ['postgresql-server-dev-all']
+rails__dev_packages: ['postgresql-server-dev-all', 'zlib1g-dev']
 
 rails_app_name: '{{ ansible_hostname }}'
 postgres_db_name: '{{ rails_app_name }}'
