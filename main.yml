@@ -4,3 +4,5 @@
     - debops.ruby
     - rails_app_psql
   environment: "{{proxy_env}}"
+  vars:
+    ruby__dev_support: True
