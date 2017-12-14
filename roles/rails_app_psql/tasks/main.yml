@@ -140,3 +140,6 @@
     owner: gitlab_deploy
     group: gitlab_deploy
   when: http_proxy is defined
+
+- include: sidekiq.yml
+  when: rails__sidekiq|boolean

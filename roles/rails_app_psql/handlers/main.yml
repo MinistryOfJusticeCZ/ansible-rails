@@ -4,3 +4,6 @@
 
 - name: restart nginx
   service: name=nginx state=restarted
+
+- name: restart redis
+  service: name=redis-server state=restarted
