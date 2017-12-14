@@ -21,13 +21,13 @@
 - name: Recomended redis configuration
   lineinfile:
     dest: /etc/redis/redis.conf
-    regex: '^appendonly'
+    regexp: '^appendonly'
     line: appendonly yes
   notify: restart redis
 
 - name: Recomended redis configuration
   lineinfile:
     dest: /etc/redis/redis.conf
-    regex: '^appendfsync'
+    regexp: '^appendfsync'
     line: appendfsync everysec
   notify: restart redis
