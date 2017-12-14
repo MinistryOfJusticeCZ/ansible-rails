@@ -142,4 +142,4 @@
   when: http_proxy is defined
 
 - include: sidekiq.yml
-  when: rails__sidekiq|boolean
+  when: rails__sidekiq

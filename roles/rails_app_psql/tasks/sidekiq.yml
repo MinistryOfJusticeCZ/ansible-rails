@@ -1,10 +1,10 @@
 - name: Add dotdeb deb server
   apt_repository:
-    repo: deb http://ftp.utexas.edu/dotdeb/ stable all
+    repo: deb http://ftp.utexas.edu/dotdeb/ stretch all
 
 - name: Add dotdeb deb-src server
   apt_repository:
-    repo: deb-src http://ftp.utexas.edu/dotdeb/ stable all
+    repo: deb-src http://ftp.utexas.edu/dotdeb/ stretch all
 
 - name: Install key for dotdeb
   apt_key:
@@ -20,11 +20,13 @@
 - name: Recomended redis configuration
   lineinfile:
     dest: /etc/redis/redis.conf
+    regex: '^appendonly'
     line: appendonly yes
   notify: restart redis
 
 - name: Recomended redis configuration
   lineinfile:
     dest: /etc/redis/redis.conf
+    regex: '^appendfsync'
     line: appendfsync everysec
   notify: restart redis
