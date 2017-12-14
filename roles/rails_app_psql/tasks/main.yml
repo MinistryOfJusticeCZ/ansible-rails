@@ -143,5 +143,5 @@
     group: gitlab_deploy
   when: http_proxy is defined
 
-- include: sidekiq.yml
+- include_tasks: sidekiq.yml
   when: rails__sidekiq
