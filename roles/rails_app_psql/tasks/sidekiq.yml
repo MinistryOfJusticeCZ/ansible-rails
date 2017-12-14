@@ -1,3 +1,9 @@
+- name: Install key for dotdeb
+  apt_key:
+    id: E9C74FEEA2098A6E
+    url: https://www.dotdeb.org/dotdeb.gpg
+    state: present
+
 - name: Add dotdeb deb server
   apt_repository:
     repo: deb http://ftp.utexas.edu/dotdeb/ stretch all
@@ -5,11 +11,6 @@
 - name: Add dotdeb deb-src server
   apt_repository:
     repo: deb-src http://ftp.utexas.edu/dotdeb/ stretch all
-
-- name: Install key for dotdeb
-  apt_key:
-    url: https://www.dotdeb.org/dotdeb.gpg
-    state: present
 
 - name: Install redis package
   apt:
