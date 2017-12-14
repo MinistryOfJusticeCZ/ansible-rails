@@ -7,6 +7,7 @@
     repo: deb-src http://ftp.utexas.edu/dotdeb/ stable all
 
 - name: Install key for dotdeb
+  apt_key:
     url: https://www.dotdeb.org/dotdeb.gpg
     state: present
 
