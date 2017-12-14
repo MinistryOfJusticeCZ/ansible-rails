@@ -18,9 +18,11 @@
     dest: /etc/postgresql/9.6/main/pg_hba.conf
     regexp: '^local\s+all\s+postgres'
     line: 'local   all             postgres                                trust'
+  register: update_pg_policy
 
 - name: Restart postgresql
   service: name=postgresql state=restarted
+  when: update_pg_policy.changed
 
 - name: Make sure required users for postgres db are in place
   postgresql_user:
