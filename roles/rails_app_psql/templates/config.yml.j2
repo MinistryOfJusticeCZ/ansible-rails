@@ -1,4 +1,10 @@
 ---
+{% if love_url is defined %}
+love_url: "{{ love_url }}"
+{% endif %}
+{% if rails__contact_mail is defined %}
+contact_mail: "{{ rails__contact_mail }}"
+{% endif %}
 ldap:
   main:
     label: 'Lab'
@@ -18,3 +24,10 @@ ldap:
       name: 'cn'
       first_name: 'givenName'
       last_name: 'sn'
+{% if rails__ires is defined %}
+ires:
+  url: "{{ rails__ires.url }}"
+  sign_cert_file: "{{ rails__ires.sign_cert_file }}"
+  sign_cert_pkey_file: "{{ rails__ires.sign_pkey_file }}"
+  sign_cert_pkey_password: "{{ rails__ires.sign_pkey_password }}"
+{% endif %}

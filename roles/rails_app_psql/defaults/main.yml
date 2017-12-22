@@ -14,9 +14,19 @@ postgres_users:
 
 # http_proxy: http://proxy.example.cz:3232/
 
+# -------# EgovUtils settings #-------
+
+# E-mail to send contact form to:
+#rails__contact_mail: posta@resort.cz
 
 ldap:
   enabled: False
   # domain: '{{ domain }}'
 
 rails__sidekiq: False
+
+# rails__ires:
+#   url: "<ires webservice url>"
+#   sign_cert_file: "<path to public certificate in pem>"
+#   sign_cert_pkey_file: "<path to private key for certificate in pem>"
+#   sign_cert_pkey_password: "<password for private key>"
