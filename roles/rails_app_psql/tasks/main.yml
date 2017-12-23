@@ -143,5 +143,35 @@
     group: gitlab_deploy
   when: http_proxy is defined
 
+- name: Copy service file to init.d
+  copy:
+    src: unicorn_service
+    dest: /etc/init.d/unicorn
+    owner: root
+    group: root
+    mode: 0744
+    
+- name: Create unicorn config directory
+  file:
+    path: /etc/unicorn
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create config file for app unicorn
+  template:
+    src: templates/app.unicorn.conf.j2
+    dest: "/etc/unicorn/{{ rails_app_name }}.unicorn.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable service httpd and ensure it is not masked
+  systemd:
+    daemon_reload: yes
+    name: unicorn
+    enabled: yes
+
 - include_tasks: sidekiq.yml
   when: rails__sidekiq
