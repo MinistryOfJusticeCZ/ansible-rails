@@ -111,7 +111,7 @@ setup () {
   CMD="$START_CMD -c $UNICORN_CONFIG -E $RAILS_ENV -D"
 
   if [ "$USER" != `whoami` ]; then
-    CMD="sudo -u $USER i-H -- env RAILS_ROOT=$RAILS_ROOT $CMD"
+    CMD="sudo -u $USER -H -- env RAILS_ROOT=$RAILS_ROOT $CMD"
   fi
   export CMD
   #echo $CMD
