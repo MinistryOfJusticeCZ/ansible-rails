@@ -14,8 +14,9 @@ postgres_users:
 
 # http_proxy: http://proxy.example.cz:3232/
 
-# -------# EgovUtils settings #-------
 
+#rails__rack_env: production
+# -------# EgovUtils settings #-------
 # E-mail to send contact form to:
 #rails__contact_mail: posta@resort.cz
 

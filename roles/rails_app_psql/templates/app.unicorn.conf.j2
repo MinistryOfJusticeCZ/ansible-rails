@@ -1,4 +1,4 @@
-RAILS_ENV="{{ rack_env|default('production') }}"
+RAILS_ENV="{{ rails__rack_env|default('production') }}"
 RAILS_ROOT="/srv/{{rails_app_name}}/current"
 ## PID=$RAILS_ROOT/tmp/pids/unicorn.pid
 ## START_CMD="bundle exec unicorn_rails"
