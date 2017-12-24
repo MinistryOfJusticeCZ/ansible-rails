@@ -4,5 +4,7 @@ RAILS_ROOT="/srv/{{rails_app_name}}/current"
 ## START_CMD="bundle exec unicorn_rails"
 USER="gitlab_deploy"
 ## RESTART_SLEEP=5
-## HANDLE_DELAYED_JOB=true
+{% if rails__sidekiq %}
+HANDLE_DELAYED_JOB=true
+{% endif %}
 UNICORN_CONFIG="$RAILS_ROOT/config/unicorn.rb"

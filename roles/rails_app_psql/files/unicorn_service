@@ -125,7 +125,7 @@ handle_delayed_job () {
 
   case $1 in
     start|stop|restart|reload|status)
-      CMD="env RAILS_ENV=$RAILS_ENV bundle exec ./script/delayed_job $1"
+      CMD="env RAILS_ENV=$RAILS_ENV bundle exec sidekiq --index 0 --pidfile $RAILS_ROOT/tmp/pids/sidekiq-0.pid --environment $RAILS_ENV --logfile $RAILS_ROOT/log/sidekiq.log -q default -q mailers --deamon"
       if [ "$USER" != `whoami` ]; then
         CMD="sudo -u $USER -- env $CMD"
       fi
