@@ -16,6 +16,8 @@ postgres_users:
 
 
 #rails__rack_env: production
+rails__reverse_proxy: False
+
 # -------# EgovUtils settings #-------
 # E-mail to send contact form to:
 #rails__contact_mail: posta@resort.cz
