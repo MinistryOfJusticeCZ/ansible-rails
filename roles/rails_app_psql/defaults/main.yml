@@ -17,6 +17,7 @@ postgres_users:
 
 #rails__rack_env: production
 rails__reverse_proxy: False
+rails__enable_ssl: False #expects cert and key in /etc/ssl/{certs,private}/nginx/{{rails_app_name}}.{crt,key}
 
 # -------# EgovUtils settings #-------
 # E-mail to send contact form to:

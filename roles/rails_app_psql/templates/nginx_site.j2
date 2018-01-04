@@ -2,13 +2,29 @@ upstream {{rails_app_name}} {
   server unix:/srv/{{rails_app_name}}/current/tmp/sockets/unicorn.sock fail_timeout=0;
 }
 
+{% if !rails__reverse_proxy && rails__enable_ssl %}
 server {
+  server_name _;
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  return 301 https://$request_host$request_uri;
+}
+{% endif %}
+
+server {
+  {% if rails__reverse_proxy || !rails__enable_ssl %}
   listen 80;
   listen [::]:80;
+  {% else %}
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  ssl_certificate /etc/ssl/certs/nginx/{{rails_app_name}}.crt;
+  ssl_certificate_key /etc/ssl/private/nginx/{{rails_app_name}}.key;
+  {% endif %}
 
   server_name _;
 
-  client_max_body_size	20m;
+  client_max_body_size  20m;
 
   keepalive_timeout 5;
 
