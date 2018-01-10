@@ -1,0 +1,7 @@
+- name: Generate a Self Signed OpenSSL certificate for site
+  openssl_certificate:
+    path: /etc/ssl/certs/nginx/{{rails_app_name}}.crt
+    privatekey_path: /etc/ssl/private/nginx/{{rails_app_name}}.key
+    csr_path: /etc/ssl/csr/{{rails_app_name}}.csr
+    provider: selfsigned
+  when: rails_generate_certificate

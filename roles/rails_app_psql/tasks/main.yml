@@ -118,6 +118,9 @@
     owner: gitlab_deploy
     group: gitlab_deploy
 
+- include_tasks: ssl.yml
+  when: rails__enable_ssl
+
 - name: Create nginx config file
   template:
     src: templates/nginx_site.j2
@@ -150,7 +153,7 @@
     owner: root
     group: root
     mode: 0744
-    
+
 - name: Create unicorn config directory
   file:
     path: /etc/unicorn
