@@ -30,6 +30,18 @@
     mode: 0744
   when: rails_generate_certificate
 
+# Generate an OpenSSL private key with the default values (4096 bits, RSA)
+- openssl_privatekey:
+    path: /etc/ssl/private/nginx/{{rails_app_name}}.key
+  when: rails_generate_certificate
+
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr:
+    path: /etc/ssl/csr/{{rails_app_name}}.csr
+    privatekey_path: /etc/ssl/private/nginx/{{rails_app_name}}.key
+    common_name: '{{ ansible_nodename }}'
+  when: rails_generate_certificate
+
 - name: Generate a Self Signed OpenSSL certificate for site
   openssl_certificate:
     path: /etc/ssl/certs/nginx/{{rails_app_name}}.crt
