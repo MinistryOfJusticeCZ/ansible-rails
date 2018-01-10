@@ -1,3 +1,8 @@
+- name: Install pip package pyopenssl for managing openssl trough python
+  pip:
+    name: pyopenssl
+    state: 'present'
+
 - name: Generate a Self Signed OpenSSL certificate for site
   openssl_certificate:
     path: /etc/ssl/certs/nginx/{{rails_app_name}}.crt
