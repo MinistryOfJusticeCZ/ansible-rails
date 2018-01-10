@@ -3,6 +3,33 @@
     name: pyopenssl
     state: 'present'
 
+- name: Create directories for nginx certs
+  file:
+    path: '/etc/ssl/certs/nginx'
+    state: directory
+    owner: root
+    group: root
+    mode: 0744
+  when: rails_generate_certificate
+
+- name: Create directories for nginx certs
+  file:
+    path: '/etc/ssl/private/nginx'
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when: rails_generate_certificate
+
+- name: Create directories for nginx certs
+  file:
+    path: '/etc/ssl/csr'
+    state: directory
+    owner: root
+    group: root
+    mode: 0744
+  when: rails_generate_certificate
+
 - name: Generate a Self Signed OpenSSL certificate for site
   openssl_certificate:
     path: /etc/ssl/certs/nginx/{{rails_app_name}}.crt
@@ -10,3 +37,9 @@
     csr_path: /etc/ssl/csr/{{rails_app_name}}.csr
     provider: selfsigned
   when: rails_generate_certificate
+
+- name: Verify that an existing certificate is still valid 2 weeks (1209600 seconds) from now
+  openssl_certificate:
+    path: /etc/ssl/certs/nginx/{{rails_app_name}}.crt
+    provider: assertonly
+    valid_in: 1209600
