@@ -28,6 +28,8 @@ ldap:
   enabled: False
   # domain: '{{ domain }}'
 
+rails__ldap_additional_domains: []
+
 rails__sidekiq: False
 
 # rails__ires:

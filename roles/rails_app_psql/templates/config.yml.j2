@@ -7,7 +7,7 @@ contact_mail: "{{ rails__contact_mail }}"
 {% endif %}
 ldap:
   main:
-    label: 'Lab'
+    label: {{ldap.label|default('Ldap')}}
     domain: {{ldap.domain}}
     resolve_host: true
     port: {{ldap.port}}
@@ -24,6 +24,26 @@ ldap:
       name: 'cn'
       first_name: 'givenName'
       last_name: 'sn'
+{% for item in ( rails__ldap_additional_domains|default([]) ) -%}
+  {{ item.key }}:
+    label: '{{ item.label }}'
+    domain: {{item.domain}}
+    resolve_host: true
+    port: {{item.port}}
+    uid: 'userPrincipalName'
+    method: '{{item.method}}'
+    bind_dn: '{{item.bind_dn}}'
+    password: '{{item.bind_password}}'
+    active_directory: true
+    base: '{{item.base}}'
+    onthefly_register: members
+    attributes:
+      username: ['userPrincipalName']
+      email: ['mail', 'email']
+      name: 'cn'
+      first_name: 'givenName'
+      last_name: 'sn'
+{%- endfor %}
 {% if rails__ires is defined %}
 ires:
   url: "{{ rails__ires.url }}"
