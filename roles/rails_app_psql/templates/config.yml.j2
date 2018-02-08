@@ -24,7 +24,7 @@ ldap:
       name: 'cn'
       first_name: 'givenName'
       last_name: 'sn'
-{% for item in ( rails__ldap_additional_domains|default([]) ) -%}
+{% for item in ( rails__ldap_additional_domains|default([]) ) %}
   {{ item.key }}:
     label: '{{ item.label }}'
     domain: {{item.domain}}
@@ -43,7 +43,7 @@ ldap:
       name: 'cn'
       first_name: 'givenName'
       last_name: 'sn'
-{%- endfor %}
+{% endfor %}
 {% if rails__ires is defined %}
 ires:
   url: "{{ rails__ires.url }}"
