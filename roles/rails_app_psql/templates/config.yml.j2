@@ -52,12 +52,13 @@ ires:
   sign_cert_pkey_password: "{{ rails__ires.sign_cert_pkey_password }}"
 {% endif %}
 {% if rails__redmine is defined %}
+redmine:
   url: "{{ rails__redmine.url }}"
   project_id: {{ rails__redmine.project_id }}
-  {% if rails__redmine.api_key is defined %}
+{% if rails__redmine.api_key is defined %}
   api_key: {{ rails__redmine.api_key }}
-  {% endif %}
-  {% if rails__redmine.query_id is defined %}
+{% endif %}
+{% if rails__redmine.query_id is defined %}
   query_id: {{ rails__redmine.query_id }}
-  {% endif %}
+{% endif %}
 {% endif %}
