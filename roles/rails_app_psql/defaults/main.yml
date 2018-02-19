@@ -37,3 +37,10 @@ rails__sidekiq: False
 #   sign_cert_file: "<path to public certificate in pem>"
 #   sign_cert_pkey_file: "<path to private key for certificate in pem>"
 #   sign_cert_pkey_password: "<password for private key>"
+
+# rails__redmine:
+#   url: "<url for redmine change log>"
+#   project_id: "<project_id in redmine>"
+#   # OPTIONAL
+#   # api_key: "<for non public projects define api key from redmine>"
+#   # query_id: "<optional query_id>"
