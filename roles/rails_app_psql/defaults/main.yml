@@ -1,6 +1,6 @@
 rails__apt_packages: ['python-pip', 'python-dev', 'postgresql', 'nginx']
 #zlib for nokogiri
-rails__dev_packages: ['postgresql-server-dev-all', 'zlib1g-dev', 'autoconf', 'autogen', 'libtool']
+rails__dev_packages: ['postgresql-server-dev-all', 'zlib1g-dev', 'autoconf', 'autogen', 'libtool', 'libltdl-dev']
 
 rails_app_name: '{{ ansible_hostname }}'
 postgres_db_name: '{{ rails_app_name }}'

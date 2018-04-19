@@ -1,0 +1,50 @@
+#!/usr/bin/env puma
+
+app_path = "/srv/{{rails_app_name}}"
+
+directory         "#{app_path}/current"
+pidfile           "#{app_path}/current/tmp/pids/puma.pid"
+state_path        "#{app_path}/current/tmp/pids/puma.state"
+# listen
+bind 			  "#{app_path}/current/tmp/sockets/puma.sock", :backlog => 64
+
+# logging
+stdout_redirect   "#{app_path}/current/log/puma.stdout.log", "#{app_path}/current/log/puma.stderr.log", true
+
+# workers
+threads 2, 8
+
+workers 2
+
+on_restart do
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+end
+
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+end
+
+# use correct Gemfile on restarts
+before_exec do |server|
+end
+
+# preload
+preload_app!
+
+# Additional text to display in process listing
+#
+tag '#{rails_app_name} Puma'
+
+# Verifies that all workers have checked in to the master process within
+# the given timeout. If not the worker process will be restarted. Default
+# value is 60 seconds.
+#
+worker_timeout 60
+
+
+on_worker_boot do
+  ActiveSupport.on_load(:active_record) do
+    ActiveRecord::Base.establish_connection
+  end
+end

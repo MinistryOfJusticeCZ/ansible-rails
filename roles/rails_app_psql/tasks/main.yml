@@ -104,6 +104,13 @@
     owner: gitlab_deploy
     group: gitlab_deploy
 
+- name: Create default unicorn config
+  template:
+    src: puma.rb.j2
+    dest: /srv/{{rails_app_name}}/shared/config/puma.rb
+    owner: gitlab_deploy
+    group: gitlab_deploy
+
 - name: Create secrets file
   template:
     src: templates/secrets.yml.j2
