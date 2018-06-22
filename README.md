@@ -9,3 +9,5 @@ Je potřeba nakonfigurovat alespoň tyto proměnné:
 rails_app_name: <name> # name of the application
 rails__sidekiq: True #defaults to false - if to install sidekiq support - redis and restart scripts
 ```
+
+More information about configuration: [defaults/main](roles/rails_app_psql/defaults/main.yml)
