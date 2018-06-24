@@ -6,6 +6,7 @@
     state: 'present'
   with_flattened:
     - '{{ rails__apt_packages }}'
+    - '{{ rails__apt_additional_packages }}'
     - '{{ rails__dev_packages }}'
 
 - name: Install pip package
