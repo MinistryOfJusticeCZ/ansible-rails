@@ -1,4 +1,5 @@
 rails__apt_packages: ['python-pip', 'python-dev', 'postgresql', 'nginx']
+rails__apt_additional_packages: []
 #zlib for nokogiri
 rails__dev_packages: ['postgresql-server-dev-all', 'zlib1g-dev', 'autoconf', 'autogen', 'libtool', 'libltdl-dev']
 
