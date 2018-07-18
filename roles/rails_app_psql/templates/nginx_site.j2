@@ -47,9 +47,9 @@ server {
     proxy_set_header  X-Forwarded-Host $host;
   }
 
-  error_page	500 502 503 504 /50x.html;
+  error_page	500 502 503 504 /500.html;
 
-  location = /50x.html {
-    root /srv/{{rails_app_name}}/public;
+  location = /500.html {
+    root /srv/{{rails_app_name}}/public/current;
   }
 }

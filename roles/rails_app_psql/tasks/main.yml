@@ -111,12 +111,15 @@
     owner: gitlab_deploy
     group: gitlab_deploy
 
-- name: Create secrets file
+- stat: path=/srv/{{rails_app_name}}/shared/config/secrets.yml
+  register: rails_secrets_file
+- name: Create secrets file if not exists
   template:
     src: templates/secrets.yml.j2
     dest: /srv/{{rails_app_name}}/shared/config/secrets.yml
     owner: gitlab_deploy
     group: gitlab_deploy
+  when: not rails_secrets_file.stat.exists
 
 - name: Create egov_utils config file
   template:
@@ -184,6 +187,8 @@
     daemon_reload: yes
     name: unicorn
     enabled: yes
+
+- include_tasks: nodejs.yml
 
 - include_tasks: sidekiq.yml
   when: rails__sidekiq

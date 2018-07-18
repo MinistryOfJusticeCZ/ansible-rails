@@ -1,0 +1,36 @@
+- name: Install key for nodesource
+  apt_key:
+    id: '68576280'
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: Add nodesource deb server
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_10.x stretch main
+    filename: nodesource
+
+- name: Add nodesource deb-src server
+  apt_repository:
+    repo: deb-src https://deb.nodesource.com/node_10.x stretch main
+    filename: nodesource
+
+- name: Install key for yarn
+  apt_key:
+    id: 86E50310
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add yarn deb server
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+    filename: yarn
+
+- name: Install yarn and nodejs package
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - nodejs
+    - yarn
+
