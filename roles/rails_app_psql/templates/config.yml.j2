@@ -1,6 +1,9 @@
 ---
-{% if love_url is defined %}
-love_url: "{{ love_url }}"
+{% if external_apps.love_url is defined %}
+love_url: "{{ external_apps.love_url }}"
+{% endif %}
+{% if external_apps.ctd_url is defined %}
+ctd_url: "{{ external_apps.ctd_url }}"
 {% endif %}
 {% if rails__contact_mail is defined %}
 contact_mail: "{{ rails__contact_mail }}"

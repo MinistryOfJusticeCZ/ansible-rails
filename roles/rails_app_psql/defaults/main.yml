@@ -33,6 +33,11 @@ rails__ldap_additional_domains: []
 
 rails__sidekiq: False
 
+external_apps:
+  void_app: False
+  # love_url: <url_to_loves>
+  # ctd_url: <url_to_ctd>
+
 # rails__ires:
 #   url: "<ires webservice url>"
 #   sign_cert_file: "<path to public certificate in pem>"
