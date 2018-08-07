@@ -25,6 +25,14 @@
     repo: deb https://dl.yarnpkg.com/debian/ stable main
     filename: yarn
 
+- name: Copy pin file to apt preferences
+  copy:
+    src: nodejs.pref
+    dest: /etc/apt/preferences.d/nodejs.pref
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Install yarn and nodejs package
   apt:
     name: "{{ item }}"
