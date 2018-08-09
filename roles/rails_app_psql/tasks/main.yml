@@ -183,5 +183,5 @@
 - name: reload deamons for systemd and enable application service
   systemd:
     daemon_reload: yes
-    name: {{rails_app_name}}
+    name: "{{rails_app_name}}"
     enabled: yes
