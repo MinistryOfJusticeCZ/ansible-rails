@@ -178,7 +178,7 @@
 - include_tasks: nodejs.yml
 
 - include_tasks: sidekiq.yml
-  when: rails__sidekiq and rails__sidekiq.enabled
+  when: rails__sidekiq
 
 - name: reload deamons for systemd and enable application service
   systemd:
