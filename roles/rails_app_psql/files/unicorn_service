@@ -26,11 +26,11 @@
 #
 ## APP_ROOT  = ENV["RAILS_ROOT"]
 ## RAILS_ENV = ENV["RAILS_ENV"]
-## 
+##
 ## pid         "#{APP_ROOT}/tmp/pids/unicorn.pid"
 ## listen      "#{APP_ROOT}/tmp/sockets/unicorn.sock"
 ## stderr_path "#{APP_ROOT}/log/unicorn_error.log"
-## 
+##
 ## working_directory "#{APP_ROOT}"
 ## worker_processes 1
 
@@ -50,25 +50,25 @@ cmd () {
       sig 0 && echo >&2 "Already running" && return
       echo "Starting"
       $CMD
-      ;;  
+      ;;
     stop)
       sig QUIT && echo "Stopping" && return
       echo >&2 "Not running"
-      ;;  
+      ;;
     force-stop)
       sig TERM && echo "Forcing a stop" && return
       echo >&2 "Not running"
-      ;;  
+      ;;
     restart|reload)
       sig USR2 && sleep $RESTART_SLEEP && oldsig QUIT && echo "Killing old master" `cat $OLD_PID` && return
       echo >&2 "Couldn't reload, starting '$CMD' instead"
       $CMD
-      ;;  
+      ;;
     upgrade)
       sig USR2 && echo Upgraded && return
       echo >&2 "Couldn't upgrade, starting '$CMD' instead"
       $CMD
-      ;;  
+      ;;
     rotate)
       sig USR1 && echo rotated logs OK && return
       echo >&2 "Couldn't rotate logs" && return
@@ -80,7 +80,7 @@ cmd () {
     *)
       echo >&2 "Usage: $0 <start|stop|restart|reload|status|upgrade|rotate|force-stop>"
       return
-      ;;  
+      ;;
     esac
 }
 
@@ -125,7 +125,7 @@ handle_delayed_job () {
 
   case $1 in
     start|stop|restart|reload|status)
-      CMD="env RAILS_ENV=$RAILS_ENV bundle exec sidekiq --index 0 --pidfile $RAILS_ROOT/tmp/pids/sidekiq-0.pid --environment $RAILS_ENV --logfile $RAILS_ROOT/log/sidekiq.log -q default -q mailers --deamon"
+      CMD="env RAILS_ENV=$RAILS_ENV bundle exec sidekiq --index 0 --pidfile $RAILS_ROOT/tmp/pids/sidekiq-0.pid --environment $RAILS_ENV --logfile $RAILS_ROOT/log/sidekiq.log -q default -q mailers --daemon"
       if [ "$USER" != `whoami` ]; then
         CMD="sudo -u $USER -- env $CMD"
       fi
