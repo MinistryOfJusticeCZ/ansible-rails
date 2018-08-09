@@ -1,0 +1,27 @@
+#####################################################
+#
+# Author            : Ondrej Ezr( ezrondre )
+# Inspired by       : https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/init/systemd
+#
+####################################################
+
+[Unit]
+Description={{ rails_app_name }} Sidekiq Worker
+PartOf={{rails_app_name}}.service
+After={{rails_app_name}}.service
+
+[Service]
+Type=forking
+User={{rails__system_user}}
+WorkingDirectory={{rails__working_directory}}
+Environment=RAILS_ENV={{ rails__rack_env }}
+SyslogIdentifier={{rails_app_name}}-sidekiq
+PIDFile={{rails__working_directory}}/tmp/pids/sidekiq.pid
+
+ExecStart=/usr/bin/bundle exec "sidekiq -C config/sidekiq_queues.yml -c 5 -e {{ rails__rack_env }} -P tmp/pids/sidekiq.pid -d -L log/sidekiq.log >> log/sidekiq.log 2>&1"
+ExecStop=/usr/bin/bundle exec "sidekiqctl stop {{rails__working_directory}}/tmp/pids/sidekiq.pid >> {{rails__working_directory}}/log/sidekiq.log 2>&1"
+
+Restart=on-failure
+
+[Install]
+WantedBy={{rails_app_name}}.service

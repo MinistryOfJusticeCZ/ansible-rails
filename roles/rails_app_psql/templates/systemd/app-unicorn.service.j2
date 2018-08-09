@@ -1,0 +1,25 @@
+#####################################################
+#
+# Author            : Ondrej Ezr( ezrondre )
+# Inspired by       : https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/init/systemd
+#
+####################################################
+
+[Unit]
+Description={{ rails_app_name }} Unicorn Server
+PartOf={{rails_app_name}}.service
+After={{rails_app_name}}.service
+
+[Service]
+User={{rails__system_user}}
+WorkingDirectory={{rails__working_directory}}
+Environment=RAILS_ENV={{ rails__rack_env }}
+SyslogIdentifier={{rails_app_name}}-unicorn
+PIDFile={{rails__working_directory}}/tmp/pids/unicorn.pid
+
+ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c {{rails__working_directory}}/config/unicorn.rb -E {{ rails__rack_env }}"
+
+Restart=on-failure
+
+[Install]
+WantedBy={{rails_app_name}}.service

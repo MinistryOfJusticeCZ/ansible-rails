@@ -31,3 +31,18 @@
     regexp: '^appendfsync'
     line: appendfsync everysec
   notify: restart redis
+
+- name: Create sidekiq config file
+  template:
+    src: sidekiq_queues.yml.j2
+    dest: /srv/{{rails_app_name}}/shared/config/sidekiq_queues.yml
+    owner: gitlab_deploy
+    group: gitlab_deploy
+
+- name: Register sidekiq systemd service
+  template:
+    src: systemd/app-sidekiq.service.j2
+    dest: /etc/systemd/system/{{rails_app_name}}-sidekiq.service
+    owner: root
+    group: root
+    mode: 0644

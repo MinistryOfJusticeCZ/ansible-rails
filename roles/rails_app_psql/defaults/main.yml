@@ -15,8 +15,14 @@ postgres_users:
 
 # http_proxy: http://proxy.example.cz:3232/
 
+# User under whom the application server is running
+rails__system_user: gitlab_deploy
+# Folder where the application resides
+rails__root_directory: "/srv/{{rails_app_name}}"
+rails__working_directory: "{{rails__root_directory}}/current"
 
-#rails__rack_env: production
+rails__rack_env: production
+
 rails__reverse_proxy: False
 rails__enable_ssl: False #expects cert and key in /etc/ssl/{certs,private}/nginx/{{rails_app_name}}.{crt,key}
 rails_generate_certificate: True #allow to create the certificates
@@ -31,7 +37,12 @@ ldap:
 
 rails__ldap_additional_domains: []
 
-rails__sidekiq: False
+rails__sidekiq:
+  enabled: False
+  queues:
+    - name: default
+      count: 2
+    - name: mailers
 
 external_apps:
   void_app: False

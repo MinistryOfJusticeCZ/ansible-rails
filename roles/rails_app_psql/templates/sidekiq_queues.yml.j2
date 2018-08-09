@@ -1,0 +1,8 @@
+:queues:
+{% for queue in rails__sidekiq.queues -%}
+  {% if queue.count -%}
+  - [{{queue.name, queue.count}}]
+  {% else %}
+  - {{queue.name}}
+  {% endif -%}
+{% endfor -%}

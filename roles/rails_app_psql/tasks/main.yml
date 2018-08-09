@@ -159,37 +159,29 @@
     group: gitlab_deploy
   when: http_proxy is defined
 
-- name: Copy service file to init.d
-  copy:
-    src: unicorn_service
-    dest: /etc/init.d/unicorn
-    owner: root
-    group: root
-    mode: 0744
-
-- name: Create unicorn config directory
-  file:
-    path: /etc/unicorn
-    state: directory
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Create config file for app unicorn
+- name: Register application systemd main service
   template:
-    src: templates/app.unicorn.conf.j2
-    dest: "/etc/unicorn/{{ rails_app_name }}.unicorn.conf"
+    src: systemd/app.service.j2
+    dest: /etc/systemd/system/{{rails_app_name}}.service
     owner: root
     group: root
     mode: 0644
 
-- name: reload deamons for systemd and enable unicorn service
-  systemd:
-    daemon_reload: yes
-    name: unicorn
-    enabled: yes
+- name: Register unicorn systemd service
+  template:
+    src: systemd/app.service.j2
+    dest: /etc/systemd/system/{{rails_app_name}}-unicorn.service
+    owner: root
+    group: root
+    mode: 0644
 
 - include_tasks: nodejs.yml
 
 - include_tasks: sidekiq.yml
-  when: rails__sidekiq
+  when: rails__sidekiq and rails__sidekiq.enabled
+
+- name: reload deamons for systemd and enable application service
+  systemd:
+    daemon_reload: yes
+    name: {{rails_app_name}}
+    enabled: yes
