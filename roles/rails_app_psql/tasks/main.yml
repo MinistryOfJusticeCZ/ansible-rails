@@ -185,3 +185,9 @@
     daemon_reload: yes
     name: "{{rails_app_name}}"
     enabled: yes
+
+- name: reload deamons for systemd and enable unicorn service
+  systemd:
+    daemon_reload: yes
+    name: "{{rails_app_name}}-unicorn"
+    enabled: yes
