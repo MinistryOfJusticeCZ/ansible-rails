@@ -39,9 +39,9 @@ rails__ldap_additional_domains: []
 
 rails__sidekiq: False
 rails__sidekiq_queues:
-    - name: default
-      count: 2
-    - name: mailers
+  - name: default
+    count: 2
+  - name: mailers
 
 external_apps:
   void_app: False
