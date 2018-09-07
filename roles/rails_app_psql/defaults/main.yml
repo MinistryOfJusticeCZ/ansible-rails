@@ -27,6 +27,8 @@ rails__reverse_proxy: False
 rails__enable_ssl: False #expects cert and key in /etc/ssl/{certs,private}/nginx/{{rails_app_name}}.{crt,key}
 rails_generate_certificate: True #allow to create the certificates
 
+rails__kerberos: False #enables nginx kerberos for servis.justice.cz domains
+
 # -------# EgovUtils settings #-------
 # E-mail to send contact form to:
 #rails__contact_mail: posta@resort.cz

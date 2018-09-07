@@ -19,6 +19,9 @@ ldap:
     bind_dn: '{{ldap.bind_dn}}'
     password: '{{ldap.bind_password}}'
     active_directory: true
+    {%- if rails__kerberos and ldap.kerberos -%}
+    kerberos: true
+    {%- endif %}
     base: '{{ldap.base}}'
     onthefly_register: members
     attributes:
@@ -38,6 +41,9 @@ ldap:
     bind_dn: '{{item.bind_dn}}'
     password: '{{item.bind_password}}'
     active_directory: true
+    {%- if rails__kerberos and item.kerberos -%}
+    kerberos: true
+    {%- endif %}
     base: '{{item.base}}'
     onthefly_register: members
     attributes:
