@@ -19,9 +19,9 @@ ldap:
     bind_dn: '{{ldap.bind_dn}}'
     password: '{{ldap.bind_password}}'
     active_directory: true
-    {% if rails__kerberos and ldap.kerberos %}
+{% if rails__kerberos and ldap.kerberos %}
     kerberos: true
-    {% endif %}
+{% endif %}
     base: '{{ldap.base}}'
     onthefly_register: members
     attributes:
