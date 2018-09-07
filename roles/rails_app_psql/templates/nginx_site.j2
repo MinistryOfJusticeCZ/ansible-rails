@@ -22,9 +22,9 @@ server {
   listen [::]:80;
   {% endif %}
 
-  {%- if rails__kerberos -%}
+  {% if rails__kerberos %}
   server_name *.justice.cz;
-  {%- endif %}
+  {% endif %}
 
   client_max_body_size  20m;
 
@@ -42,9 +42,9 @@ server {
     proxy_set_header  Host $host;
     proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header  X-Forwarded-Proto $scheme;
-    {%- if rails__reverse_proxy -%}
+    {% if rails__reverse_proxy %}
     proxy_set_header  X-Forwarded-Ssl on; # Optional
-    {%- endif %}
+    {% endif %}
     proxy_set_header  X-Forwarded-Port $server_port;
     proxy_set_header  X-Forwarded-Host $host;
   }
@@ -52,7 +52,7 @@ server {
   error_page	500 502 503 504 /500.html;
 }
 
-{%- if rails__kerberos -%}
+{% if rails__kerberos %}
 server {
   {% if (not rails__reverse_proxy) and rails__enable_ssl %}
   listen 443 ssl;
@@ -82,20 +82,20 @@ server {
     proxy_set_header  Host $host;
     proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header  X-Forwarded-Proto $scheme;
-    {%- if rails__reverse_proxy -%}
+    {% if rails__reverse_proxy %}
     proxy_set_header  X-Forwarded-Ssl on; # Optional
-    {%- endif %}
+    {% endif %}
     proxy_set_header  X-Forwarded-Port $server_port;
     proxy_set_header  X-Forwarded-Host $host;
 
     auth_gss on;
     auth_gss_keytab /srv/{{rails_app_name}}//shared/krb/{{rails_app_name}}.keytab;
-    auth_gss_service_name HTTP;
-    auth_gss_format_full 1;
+    auth_gss_service_name HTTP/{{ rails__kerberos_host }};
+    auth_gss_format_full on;
 
     proxy_set_header REMOTE_USER $remote_user;
   }
 
   error_page  500 502 503 504 /500.html;
 }
-{%- endif %}
+{% endif %}

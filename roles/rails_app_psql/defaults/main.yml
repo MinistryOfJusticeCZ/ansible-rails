@@ -28,6 +28,7 @@ rails__enable_ssl: False #expects cert and key in /etc/ssl/{certs,private}/nginx
 rails_generate_certificate: True #allow to create the certificates
 
 rails__kerberos: False #enables nginx kerberos for servis.justice.cz domains
+rails__kerberos_host: "{{ rails_app_name }}.servis.justice.cz" #host for kerberos servis.justice.cz domains
 
 # -------# EgovUtils settings #-------
 # E-mail to send contact form to:
