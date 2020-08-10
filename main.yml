@@ -1,8 +1,11 @@
 - name: Setup rails app
   hosts: all
-  roles:
-    - debops.ruby
-    - rails_app_psql
+  tasks:
+    - include_role: name = debops.ruby
+    - include_role: name=rails_app_psql
+      loop: "{{ rails_app_names | default([rails_app_name]) }}"
+      loop_control:
+        loop_var: rails_app_name
   environment: "{{proxy_env}}"
   vars:
     ruby__dev_support: True
